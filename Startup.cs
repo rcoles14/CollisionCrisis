@@ -30,7 +30,7 @@ namespace CollisionCrisis
            {
                options.UseMySql(Configuration["ConnectionStrings:CollisionDbConnection"]);
            });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
