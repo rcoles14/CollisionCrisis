@@ -30,6 +30,7 @@ namespace CollisionCrisis
            {
                options.UseMySql(Configuration["ConnectionStrings:CollisionDbConnection"]);
            });
+            services.AddScoped<ICollisionCrisisRepository, EFCollisionCrisisRepository>();
             
         }
 
@@ -59,7 +60,9 @@ namespace CollisionCrisis
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
 
-                
+                endpoints.MapControllerRoute(
+                        name: "admin",
+                        pattern: "{controller=Admin}/{action=Index}/{id?}");
             });
         }
     }

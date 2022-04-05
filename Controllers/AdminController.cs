@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CollisionCrisis.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +9,19 @@ namespace CollisionCrisis.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Index()
+        private ICollisionCrisisRepository _repo { get; set; }
+
+        public AdminController(ICollisionCrisisRepository temp)
         {
-            return View();
+            _repo = temp;
+        }
+        public IActionResult Index(int pageNum = 1)
+        {
+            int pageSize = 20;
+
+            var blah = _repo.CrashNormal.OrderBy(c => c.crash_id).Skip((pageNum - 1) * pageSize).Take(pageSize);
+
+            return View(blah);
         }
     }
 }
