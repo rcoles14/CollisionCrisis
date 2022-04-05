@@ -11,18 +11,23 @@ namespace CollisionCrisis.Controllers
 {
     public class HomeController : Controller
     {
-        private CrashNormalDbContext _context { get; set; }
+        private ICollisionCrisisRepository _repo{ get; set; }
 
-        public HomeController(CrashNormalDbContext temp)
+        public HomeController(ICollisionCrisisRepository temp)
         {
-            _context = temp;
+            _repo = temp;
         }
         public IActionResult Index()
         {
 
-            var crash = _context.CrashNormal.ToList();
+            var crash = _repo.CrashNormal.ToList();
 
             return View(crash);
+        }
+        public IActionResult About()
+        {
+
+            return View();
         }
 
         public IActionResult Privacy()
