@@ -11,16 +11,18 @@ namespace CollisionCrisis.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private CrashNormalDbContext _context { get; set; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(CrashNormalDbContext temp)
         {
-            _logger = logger;
+            _context = temp;
         }
-
         public IActionResult Index()
         {
-            return View();
+
+            var crash = _context.CrashNormal.ToList();
+
+            return View(crash);
         }
 
         public IActionResult Privacy()
@@ -28,10 +30,6 @@ namespace CollisionCrisis.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+
     }
 }

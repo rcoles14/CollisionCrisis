@@ -8,6 +8,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CollisionCrisis.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CollisionCrisis
 {
@@ -24,6 +26,11 @@ namespace CollisionCrisis
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<CrashNormalDbContext>(options =>
+           {
+               options.UseMySql(Configuration["ConnectionStrings:CollisionDbConnection"]);
+           });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -51,6 +58,8 @@ namespace CollisionCrisis
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                
             });
         }
     }
