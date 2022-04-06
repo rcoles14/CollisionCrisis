@@ -1,40 +1,50 @@
 ﻿
 @{
 }
-@model IQueryable<CrashNormal>
-<table class="table table-sm table-bordered table-hover">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Route</th>
-            <th>Milepoint</th>
-            <th>Road Name</th>
-            <th>City</th>
-            <th>County</th>
-            <th>Severity</th>
-            <th>Crash Date</th>
-            <th>Crash Time</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (CrashNormal c in Model)
+@model CrashNormalViewModel
+    <div class="text-center">
+        <a class="btn btn-outline-dark btn-group m1" asp-action="Index">First Page</a>
+        @if (Model.PageInfo.CurrentPage != 1)
         {
-        <tr>
-            <td>@c.crash_id</td>
-            <td>@c.route</td>
-            <td>@c.milepoint</td>
-            <td>@c.main_road_name</td>
-            <td>@c.city</td>
-            <td>@c.county_name</td>
-            <td>@c.crash_severity_id</td>
-            <td>@c.crash_date</td>
-            <td>@c.crash_time</td>
-            <td><a asp-controller="Admin" asp-action="Edit" class="btn btn-sm btn-warning btn-block" asp-route-id="@c.crash_id">Edit</a></td>
-            <td><a asp-controller="Admin" asp-action="Delete" class="btn btn-sm btn-danger btn-block" asp-route-id="@c.crash_id">Delete</a></td>
-        </tr>
+                <a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.PrevPage">Previous Page</a>
         }
+        <div page-blah="@Model.PageInfo" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark"
+             page-class-selected="btn-primary" class="btn-group m-1"></div><a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.TotalPages">Last Page</a>
+    </div>
 
-    </tbody>
+    <table class="table table-sm table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Route</th>
+                <th>Milepoint</th>
+                <th>Road Name</th>
+                <th>City</th>
+                <th>County</th>
+                <th>Severity</th>
+                <th>Crash Date</th>
+                <th>Crash Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (CrashNormal c in Model.CrashNormal)
+            {
+                <tr>
+                    <td>@c.crash_id</td>
+                    <td>@c.route</td>
+                    <td>@c.milepoint</td>
+                    <td>@c.main_road_name</td>
+                    <td>@c.city</td>
+                    <td>@c.county_name</td>
+                    <td>@c.crash_severity_id</td>
+                    <td>@c.crash_date</td>
+                    <td>@c.crash_time</td>
+                    <td><a asp-controller="Admin" asp-action="Edit" class="btn btn-sm btn-warning btn-block" asp-route-id="@c.crash_id">Edit</a></td>
+                    <td><a asp-controller="Admin" asp-action="Delete" class="btn btn-sm btn-danger btn-block" asp-route-id="@c.crash_id">Delete</a></td>
+                </tr>
+            }
 
-</table>
-<div page-blah=""></div>
+        </tbody>
+
+    </table>
+

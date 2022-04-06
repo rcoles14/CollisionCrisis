@@ -8,5 +8,10 @@ namespace CollisionCrisis.Models
     public interface ICollisionCrisisRepository
     {
         IQueryable<CrashNormal> CrashNormal { get;  }
+
+
+        void Add(CrashNormal c);
+        void Update(CrashNormal bn);
+        void Delete(CrashNormal d);
     }
 }

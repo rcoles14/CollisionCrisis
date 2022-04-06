@@ -1,0 +1,82 @@
+﻿@{
+    ViewData["Title"] = "Add/Edit Collision";
+}
+@model CrashNormal
+<h1>Add or Edit Collision</h1>
+<br />
+<br />
+<div class="text-center form-group">
+    <form method="post">
+        <div asp-validation-summary="All"></div>
+
+        <input type="hidden" asp-for="crash_id" /><br />
+
+        <div class="form-group">
+            <label asp-for="route" class="p-2">Route</label>
+            <input class="form-control-sm" asp-for="route" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="milepoint" class="p-2">MilePoint</label>
+            <input class="form-control-sm" asp-for="milepoint" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="lat_utm_y" class="p-2">Latitude</label>
+            <input class="form-control-sm" asp-for="lat_utm_y" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="long_utm_x" class="p-2">Longitude</label>
+            <input class="form-control-sm" asp-for="long_utm_x" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="main_road_name" class="p-2">Main Road Name</label>
+            <input class="form-control-sm" asp-for="main_road_name" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="city" class="p-2">City</label>
+            <input class="form-control-sm" asp-for="city" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="city" class="p-2">County</label>
+            <select class="form-control-sm" asp-for="city">
+                <option disabled selected>Choose a County</option>
+                @foreach (string c in ViewBag.County)
+                {
+                    <option value="@c">@c</option>
+                }
+
+            </select><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="crash_severity_id" class="p-2">Crash Severity</label>
+            <select class="form-control-sm" asp-for="crash_severity_id">
+                <option disabled>Crash Severity</option>
+                @for (int i = 1; i < 6; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+
+            </select><br />
+        </div>
+
+        <div class="form-group">
+            <label asp-for="work_zone_related" class="p-2">Work Zone Related?</label>
+            <select class="form-control-sm" asp-for="work_zone_related">
+                <option disabled selected>Yes/No?</option>
+                <option value=true>Yes</option>
+                <option value=false>No</option>
+            </select>
+        </div>
+
+        @*
+
+        <div class="form-group">
+            <label asp-for="" class="p-2"></label>
+            <input class="form-control-sm" asp-for="" /><br />
+        </div>
+        <div class="form-group">
+            <label asp-for="" class="p-2"></label>
+            <input class="form-control-sm" asp-for="" /><br />
+        </div>*@
+
+    </form>
+</div>

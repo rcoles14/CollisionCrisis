@@ -9,5 +9,6 @@ namespace CollisionCrisis.Models.ViewModels
     public class CrashNormalViewModel
     {
         public IQueryable<CrashNormal> CrashNormal { get; set; }
+        public PageInfo PageInfo { get; set; }
     }
 }
