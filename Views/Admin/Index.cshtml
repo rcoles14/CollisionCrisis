@@ -2,11 +2,15 @@
 @{
 }
 @model CrashNormalViewModel
+
+
+    
     <div class="text-center">
+        <a class="btn btn-group m1 btn btn-success" asp-action="Add">Add Incident</a>
         <a class="btn btn-outline-dark btn-group m1" asp-action="Index">First Page</a>
         @if (Model.PageInfo.CurrentPage != 1)
         {
-                <a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.PrevPage">Previous Page</a>
+            <a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.PrevPage">Previous Page</a>
         }
         <div page-blah="@Model.PageInfo" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark"
              page-class-selected="btn-primary" class="btn-group m-1"></div><a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.TotalPages">Last Page</a>
@@ -24,6 +28,8 @@
                 <th>Severity</th>
                 <th>Crash Date</th>
                 <th>Crash Time</th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>

@@ -16,11 +16,10 @@ namespace CollisionCrisis.Controllers
         {
             _repo = temp;
         }
-        public IActionResult Index(string selected, int pageNum = 1)
+        public IActionResult Index(int pageNum = 1)
         {
             int pageSize = 50;
 
-            ViewBag.Selected = selected;
 
             var x = new CrashNormalViewModel
             {
