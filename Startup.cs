@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using CollisionCrisis.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace CollisionCrisis
 {
@@ -26,11 +27,20 @@ namespace CollisionCrisis
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<CrashNormalDbContext>(options =>
-           {
-               options.UseMySql(Configuration["ConnectionStrings:CollisionDbConnection"]);
-           });
+           // services.AddDbContext<CrashNormalDbContext>(options =>
+           //{
+           //    options.UseMySql(Configuration["ConnectionStrings:CollisionDbConnection"]);
+           //});
+
+
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
+
             services.AddScoped<ICollisionCrisisRepository, EFCollisionCrisisRepository>();
+            services.AddAuthentication();
+            services.AddRazorPages();
             
         }
 
@@ -51,7 +61,7 @@ namespace CollisionCrisis
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -63,7 +73,10 @@ namespace CollisionCrisis
                 endpoints.MapControllerRoute(
                         name: "admin",
                         pattern: "{controller=Admin}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
+            
+            
         }
     }
 }

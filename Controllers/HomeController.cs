@@ -1,4 +1,6 @@
 ﻿using CollisionCrisis.Models;
+using CollisionCrisis.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,9 +15,12 @@ namespace CollisionCrisis.Controllers
     {
         private ICollisionCrisisRepository _repo{ get; set; }
 
+
+
         public HomeController(ICollisionCrisisRepository temp)
         {
             _repo = temp;
+
         }
         public IActionResult Index()
         {

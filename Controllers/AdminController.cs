@@ -1,5 +1,7 @@
 ﻿using CollisionCrisis.Models;
 using CollisionCrisis.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,11 +13,17 @@ namespace CollisionCrisis.Controllers
     public class AdminController : Controller
     {
         private ICollisionCrisisRepository _repo { get; set; }
+        private UserManager<IdentityUser> userManager;
 
-        public AdminController(ICollisionCrisisRepository temp)
+        private SignInManager<IdentityUser> signInManager;
+
+        public AdminController(ICollisionCrisisRepository temp, UserManager<IdentityUser> um, SignInManager<IdentityUser> sim)
         {
             _repo = temp;
+            userManager = um;
+            signInManager = sim;
         }
+        [Authorize]
         public IActionResult Index(int pageNum = 1)
         {
             int pageSize = 50;
@@ -33,15 +41,22 @@ namespace CollisionCrisis.Controllers
                 }
 
             };
-
-            return View(x);
+            if (signInManager.IsSignedIn(User))
+            {
+                return View(x);
+            }else
+            {
+                return View("Login");
+            }
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Add()
         {
             ViewBag.County = _repo.CrashNormal.Select(x => x.county_name).Distinct().OrderBy(x => x).ToList();
-            
-            return View();
+
+                return View();
+
         }
         [HttpPost]
         public IActionResult Add(CrashNormal c)
@@ -50,6 +65,7 @@ namespace CollisionCrisis.Controllers
             _repo.Add(c);
             return RedirectToAction("Index");
         }
+        [Authorize]
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -60,21 +76,28 @@ namespace CollisionCrisis.Controllers
         [HttpPost]
         public IActionResult Edit(CrashNormal cn)
         {
-            _repo.Update(cn);
-            return RedirectToAction("Index");
-        }
+            _repo.Update(cn); 
 
+                return RedirectToAction("Index");
+
+        }
+            
+        [Authorize]
         [HttpGet]
         public IActionResult Delete(int id)
         {
             var crash = _repo.CrashNormal.Single(x => x.crash_id == id);
-            return View("Delete", crash);
+                return View("Delete", crash);
+
         }
+            
+        
         [HttpPost]
         public IActionResult Delete(CrashNormal d)
         {
             _repo.Delete(d);
             return RedirectToAction("Index");
         }
+
     }
 }
