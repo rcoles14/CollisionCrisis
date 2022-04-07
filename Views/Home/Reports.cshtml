@@ -1,0 +1,51 @@
+﻿@{
+}
+
+@model CrashNormalViewModel
+
+    <div class="text-center">
+        <a class="btn btn-outline-dark btn-group m1" asp-action="Index">First Page</a>
+        @if (Model.PageInfo.CurrentPage != 1)
+        {
+            <a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.PrevPage">Previous Page</a>
+        }
+        <div page-blah="@Model.PageInfo" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark"
+             page-class-selected="btn-primary" class="btn-group m-1"></div><a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.TotalPages">Last Page</a>
+    </div>
+    @*<div page-blah="@Model.PageInfo" page-action="Reports" page-class="btn"
+             page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-classes-enabled="true"
+             class="btn-group pull-right m-1">
+        </div>
+
+
+        <div class="text-center">
+            <a class="btn btn-group m1 btn btn-success" asp-action="Add">Add Incident</a>
+            <a class="btn btn-outline-dark btn-group m1" asp-action="Index">First Page</a>
+            @if (Model.PageInfo.CurrentPage != 1)
+            {
+                <a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.PrevPage">Previous Page</a>
+            }
+            <div page-blah="@Model.PageInfo" page-classes-enabled="true" page-class="btn" page-class-normal="btn-outline-dark"
+                 page-class-selected="btn-primary" class="btn-group m-1"></div><a class="btn btn-outline-dark btn-group m1" asp-action="Index" asp-route-pageNum="@Model.PageInfo.TotalPages">Last Page</a>
+        </div>
+
+        <br />
+        <br />*@
+
+    <div class="row m-1 p-1">
+        <div id="types" class="col-3">
+            <vc:types></vc:types>
+
+        </div>
+
+        <div class="col-9">
+            @foreach (CrashNormal cn in Model.Crashnormal)
+            {
+                <partial name="CrashSummary" model="cn" />
+                // go look for Project Summary. Send "b"
+            }
+        </div>
+    </div>
+
+
+

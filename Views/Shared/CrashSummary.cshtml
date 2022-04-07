@@ -1,0 +1,36 @@
+﻿
+@{
+}
+
+@model CrashNormal
+
+<div class="card card-outline-primary m-1 p-1">
+    <div class="bg-dark p-1">
+        <h3 style="color:white;">@Model.crash_date</h3>
+
+        <span class="badge bg-info" style="float:right">
+            Severity: @Model.crash_severity_id
+        </span>
+    </div>
+    <ul>
+        <li>@Model.crash_id</li>
+        <li>@Model.route</li>
+        <li>@Model.milepoint</li>
+        <li>@Model.main_road_name</li>
+        <li>@Model.city</li>
+        <li>@Model.county_name</li>
+        <li>@Model.crash_time</li>
+    </ul>
+
+    <!--<form method="post" asp-page="/Shop">
+
+        <input type="hidden" asp-for="@Model.crash_id" />--> @*Pass info*@
+        @*<input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+
+        <span class="card-text">
+            <button type="submit" class="btn btn-success btn-sm float-end shadow-lg">Add to Cart</button>
+        </span>*@
+
+    <!--</form>-->
+
+</div>
