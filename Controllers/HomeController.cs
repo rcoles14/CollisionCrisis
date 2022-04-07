@@ -1,4 +1,5 @@
 ﻿using CollisionCrisis.Models;
+using CollisionCrisis.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -29,12 +30,35 @@ namespace CollisionCrisis.Controllers
 
             return View();
         }
+        public IActionResult Reports(string City, int pageNum = 1)
+        {
+            int pageSize = 50;
+
+            var x = new CrashNormalViewModel
+            {
+                Crashnormal = _repo.CrashNormal
+                .OrderBy(c => c.crash_id)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize)
+                .Where(c => c.city == City|| City == null ),
+
+                PageInfo = new PageInfo
+                {
+                    TotalNumCrashes = _repo.CrashNormal.Count(),
+                    CrashesPerPage = pageSize,
+                    CurrentPage = pageNum
+                }
+
+            };
+
+            return View(x);
+        }
+
 
         public IActionResult Privacy()
         {
             return View();
         }
-
-
     }
+
 }

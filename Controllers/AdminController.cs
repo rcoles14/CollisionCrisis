@@ -20,10 +20,9 @@ namespace CollisionCrisis.Controllers
         {
             int pageSize = 50;
 
-
             var x = new CrashNormalViewModel
             {
-                CrashNormal = _repo.CrashNormal.OrderBy(c => c.crash_id).Skip((pageNum - 1) * pageSize).Take(pageSize),
+                Crashnormal = _repo.CrashNormal.OrderBy(c => c.crash_id).Skip((pageNum - 1) * pageSize).Take(pageSize),
 
                 PageInfo = new PageInfo
                 {

@@ -7,20 +7,25 @@ using System.Threading.Tasks;
 
 namespace CollisionCrisis.Components
 {
-    public class FilterViewComponent : ViewComponent
+    public class TypesViewComponent : ViewComponent
     {
         private ICollisionCrisisRepository _repo { get; set; }
 
-        public FilterViewComponent (ICollisionCrisisRepository temp)
+        public TypesViewComponent (ICollisionCrisisRepository temp)
         {
             _repo = temp;
         }
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.Selected = RouteData?.Values["filter"];
-            var filter = _repo.CrashNormal.Select(c => c.city).OrderBy(x => x);
-            return View(filter);
+            ViewBag.Selected = RouteData?.Values["type"];
+
+            var types = _repo.CrashNormal
+                .Select(c => c.city)
+                .Distinct()
+                .OrderBy(x => x);
+
+            return View(types);
 
         }
     }
